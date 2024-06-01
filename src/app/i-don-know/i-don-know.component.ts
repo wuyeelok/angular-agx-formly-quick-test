@@ -14,8 +14,11 @@ import { Subscription, fromEvent, take } from 'rxjs';
 })
 export class IDonKnowComponent implements AfterViewInit, OnDestroy {
   @ViewChild('myButton', { read: ElementRef }) private button!: ElementRef;
+  @ViewChild('resetButton', { read: ElementRef })
+  private resetButton!: ElementRef;
 
   private btnSubscription!: Subscription;
+  private resetBtnSubsc!: Subscription;
 
   private _clickMeBtnChance: number = 3;
 
@@ -30,8 +33,8 @@ export class IDonKnowComponent implements AfterViewInit, OnDestroy {
       take(this._clickMeBtnChance)
     );
 
-    this.btnSubscription = btn$.subscribe({
-      next: (evt) => {
+    const clickedMeBtnObserver = {
+      next: () => {
         console.log('Button clicked');
         this._clickMeBtnChance--;
       },
@@ -39,11 +42,22 @@ export class IDonKnowComponent implements AfterViewInit, OnDestroy {
         console.log('No more click event!');
         this.button.nativeElement.innerText = 'FINSHED';
       },
+    };
+
+    this.btnSubscription = btn$.subscribe(clickedMeBtnObserver);
+
+    const resetBtn$ = fromEvent(this.resetButton.nativeElement, 'click');
+    this.resetBtnSubsc = resetBtn$.subscribe(() => {
+      this.btnSubscription.unsubscribe();
+      this._clickMeBtnChance = 3;
+      this.button.nativeElement.innerText = 'Click ME';
+      this.btnSubscription = btn$.subscribe(clickedMeBtnObserver);
     });
   }
 
   ngOnDestroy(): void {
     console.log('Callled ngOnDestroy');
     this.btnSubscription.unsubscribe();
+    this.resetBtnSubsc.unsubscribe();
   }
 }

@@ -1,2 +1,11 @@
 <button #myButton mat-raised-button>Click ME</button>
 <div>Clicked ME Button Chance: {{ clickMeBtnChance }}</div>
+
+<button
+  [hidden]="clickMeBtnChance > 0"
+  #resetButton
+  mat-raised-button
+  color="primary"
+>
+  Reset
+</button>
