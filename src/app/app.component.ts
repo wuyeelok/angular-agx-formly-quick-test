@@ -8,7 +8,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'angular-agx-fromly';
+  title = 'angular-agx-formly';
 
   form = new FormGroup({});
   model = { email: '' };
