@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { RouterOutlet, RouterLink } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -11,6 +11,7 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
 import { MatButtonModule } from '@angular/material/button';
 import { IDonKnowComponent } from './i-don-know/i-don-know.component';
 import { TryTryComponent } from './try-try/try-try.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, IDonKnowComponent, TryTryComponent],
@@ -25,8 +26,8 @@ import { TryTryComponent } from './try-try/try-try.component';
     }),
     FormlyMaterialModule,
     MatButtonModule,
-    RouterOutlet,
-    RouterLink,
+    RouterModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
